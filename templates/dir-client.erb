@@ -1,0 +1,16 @@
+Client {
+  Name = "<%= @name %>-fd"
+  Address = <%= @name %>
+  FDPort = <%= @port %>
+  Catalog = "<%= @catalog %>"
+  Password = "<%= @password %>"
+  File Retention = <%= @file_retention %>
+  Job Retention = <%= @job_retention %>
+  AutoPrune = yes
+
+  TLS Enable = yes
+  TLS Require = yes
+  TLS CA Certificate File = "<%= @tls_ca %>"
+  TLS Certificate = "<%= @tls_cert %>"
+  TLS Key = "<%= @tls_key %>"
+}

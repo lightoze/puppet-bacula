@@ -1,0 +1,17 @@
+{
+  "name": "lightoze-bacula",
+  "version": "0.0.1",
+  "author": "lightoze",
+  "summary": "Manages Bacula server and clients",
+  "license": "Apache 2.0",
+  "source": "git@git.teklabs.com:puppet/bacula.git",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}
+

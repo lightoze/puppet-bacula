@@ -1,0 +1,6 @@
+Messages {
+  Name = <%= @messages %>
+<% @lines.each do |key, value| -%>
+  <%= key %> = <%= value %>
+<% end -%>
+}

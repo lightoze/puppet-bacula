@@ -1,0 +1,18 @@
+Director {
+  Name = "<%= @fqdn %>-dir"
+  DirPort = <%= @port %>
+  WorkingDirectory = "<%= @working_directory %>"
+  PidDirectory = "<%= @pid_directory %>"
+  Password = "<%= @password %>"
+  QueryFile = "<%= @queryfile %>"
+  Maximum Concurrent Jobs = <%= @max_concurrent_jobs %>
+  Messages = <%= @messages %>
+
+  TLS Enable = yes
+  TLS Require = yes
+  TLS Verify Peer = yes
+  TLS Allowed CN = "<%= @fqdn %>"
+  TLS CA Certificate File = "<%= @tls_ca %>"
+  TLS Certificate = "<%= @tls_cert %>"
+  TLS Key = "<%= @tls_key %>"
+}

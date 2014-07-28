@@ -1,0 +1,16 @@
+Storage {
+  Name = "<%= @name %>"
+  Address = <%= @address %>
+  SDPort = <%= @port %>
+  Password = "<%= @password %>"
+  Device = "<%= @device %>"
+  Media Type = "<%= @mediatype %>"
+  Autochanger = <%= @autochanger ? 'yes' : 'no' %>
+  Maximum Concurrent Jobs = <%= @max_concurrent_jobs %>
+
+  TLS Enable = yes
+  TLS Require = yes
+  TLS CA Certificate File = "<%= @tls_ca %>"
+  TLS Certificate = "<%= @tls_cert %>"
+  TLS Key = "<%= @tls_key %>"
+}

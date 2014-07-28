@@ -1,0 +1,16 @@
+Job {
+  Name = "<%= @name %>"
+  Client = "<%= @client %>-fd"
+  JobDefs = "<%= @jobdefs %>"
+
+<% @runscripts.each do |item| -%>
+  RunScript {
+    RunsWhen = <%= item.fetch('runs_when') %>
+    FailJobOnError = <%= (item['fail_job_on_error'] != false) ? 'yes' : 'no' %>
+    RunsOnSuccess = <%= (item['runs_on_success'] != false) ? 'yes' : 'no' %>
+    RunsOnFailure = <%= item['runs_on_failure'] ? 'yes' : 'no' %>
+    Command = "<%= item.fetch('command') %>"
+  }
+<% end -%>
+
+}
