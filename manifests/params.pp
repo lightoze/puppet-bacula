@@ -35,10 +35,7 @@ class bacula::params {
     }
 
     $group = 'bacula'
-    $tls_dir = "${configdir}/ssl"
-    $tls_ca = "${tls_dir}/ca.pem"
-    $tls_cert = "${tls_dir}/cert.pem"
-    $tls_key = "${tls_dir}/key.pem"
+    $allowed_peers = undef
 
     $director_port = 9101
     $director_password = sha1("${::fqdn}-dir-${::sshrsakey}")

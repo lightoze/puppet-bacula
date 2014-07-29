@@ -5,10 +5,5 @@ Storage {
   PidDirectory = "<%= @pid_directory %>"
   Maximum Concurrent Jobs = <%= @max_concurrent_jobs %>
 
-  TLS Enable = yes
-  TLS Require = yes
-  TLS Verify Peer = yes
-  TLS CA Certificate File = "<%= @tls_ca %>"
-  TLS Certificate = "<%= @tls_cert %>"
-  TLS Key = "<%= @tls_key %>"
+<%= scope.function_template(['bacula/tls.erb']) -%>
 }

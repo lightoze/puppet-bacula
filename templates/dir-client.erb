@@ -8,9 +8,5 @@ Client {
   Job Retention = <%= @job_retention %>
   AutoPrune = yes
 
-  TLS Enable = yes
-  TLS Require = yes
-  TLS CA Certificate File = "<%= @tls_ca %>"
-  TLS Certificate = "<%= @tls_cert %>"
-  TLS Key = "<%= @tls_key %>"
+<%= scope.function_template(['bacula/tls.erb']) -%>
 }

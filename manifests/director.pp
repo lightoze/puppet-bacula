@@ -4,9 +4,6 @@ class bacula::director (
     $group = $bacula::params::group,
     $service = $bacula::params::director_service,
     $port = $bacula::params::director_port,
-    $tls_ca = $bacula::params::tls_ca,
-    $tls_cert = $bacula::params::tls_cert,
-    $tls_key = $bacula::params::tls_key,
     $working_directory = $bacula::params::working_directory,
     $pid_directory = $bacula::params::pid_directory,
     $password = $bacula::params::director_password,
@@ -21,7 +18,8 @@ class bacula::director (
     }
     service { 'bacula-director':
         name => $service,
-        require => Package['bacula-director']
+        ensure => running,
+        require => Package['bacula-director'],
     }
 
     file { "${config}.d":
@@ -38,16 +36,7 @@ class bacula::director (
         group => $group,
         notify => Service['bacula-director'],
     }
-    concat::fragment { 'bacula_director':
-        target => $config,
-        content => template('bacula/dir.erb'),
-        order => $bacula::params::order_director,
-    }
-    concat::fragment { 'bacula_director_includes':
-        target => $config,
-        content => "@|\"find ${config}.d -name '*.conf' -type f -printf '@%p\\\\n'\"",
-        order => $bacula::params::order_includes,
-    }
+    contain bacula::director::fragments
     @@bacula::director::client { "$::fqdn":
         site => $site,
     }
@@ -65,11 +54,24 @@ class bacula::director (
     Bacula::Job::Director <<| site == $site |>>
 }
 
+class bacula::director::fragments {
+    $config = $bacula::director::config
+    $allowed_peers = [$::fqdn]
+    concat::fragment { 'bacula_director':
+        target => $config,
+        content => template('bacula/dir.erb'),
+        order => $bacula::params::order_director,
+    }
+    concat::fragment { 'bacula_director_includes':
+        target => $config,
+        content => "@|\"find ${config}.d -name '*.conf' -type f -printf '@%p\\\\n'\"",
+        order => $bacula::params::order_includes,
+    }
+}
+
 define bacula::director::storage($site) {
-    $tls_ca = $bacula::storage::tls_ca
-    $tls_cert = $bacula::storage::tls_cert
-    $tls_key = $bacula::storage::tls_key
     $password = $bacula::storage::password
+    $allowed_peers = [$name]
     concat::fragment { "bacula_sd_$name":
         target => $bacula::storage::config,
         content => template('bacula/client-dir.erb'),
@@ -78,10 +80,8 @@ define bacula::director::storage($site) {
 }
 
 define bacula::director::client($site) {
-    $tls_ca = $bacula::client::tls_ca
-    $tls_cert = $bacula::client::tls_cert
-    $tls_key = $bacula::client::tls_key
     $password = $bacula::client::password
+    $allowed_peers = [$name]
     concat::fragment { "bacula_fd_$name":
         target => $bacula::client::config,
         content => template('bacula/client-dir.erb'),
@@ -90,9 +90,6 @@ define bacula::director::client($site) {
 }
 
 define bacula::director::console($site, $port, $password) {
-    $tls_ca = $bacula::console::tls_ca
-    $tls_cert = $bacula::console::tls_cert
-    $tls_key = $bacula::console::tls_key
     concat::fragment { "bacula_console_$name":
         target => $bacula::console::config,
         content => template('bacula/console-dir.erb'),

@@ -1,0 +1,13 @@
+<% if scope['bacula::tls::enabled'] -%>
+  TLS Enable = yes
+  TLS Require = <%= scope['bacula::tls::required'] ? 'yes' : 'no' %>
+<% if @allowed_peers -%>
+  TLS Verify Peer = yes
+<% @allowed_peers.each do |value| -%>
+  TLS Allowed CN = "<%= value %>"
+<% end -%>
+<% end -%>
+  TLS CA Certificate File = "<%= scope['bacula::tls::ca'] %>"
+  TLS Certificate = "<%= scope['bacula::tls::cert'] %>"
+  TLS Key = "<%= scope['bacula::tls::key'] %>"
+<% end -%>
