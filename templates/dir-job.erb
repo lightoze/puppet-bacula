@@ -1,7 +1,10 @@
 Job {
   Name = "<%= @name %>"
   Client = "<%= @client %>-fd"
-  JobDefs = "<%= @jobdefs %>"
+
+<% @options_real.each do |key, value| -%>
+  <%= key %> = <%= (/\w+/ =~ value) ? value : value.inspect %>
+<% end -%>
 
 <% @runscripts.each do |item| -%>
   RunScript {
@@ -9,8 +12,7 @@ Job {
     FailJobOnError = <%= (item['fail_job_on_error'] != false) ? 'yes' : 'no' %>
     RunsOnSuccess = <%= (item['runs_on_success'] != false) ? 'yes' : 'no' %>
     RunsOnFailure = <%= item['runs_on_failure'] ? 'yes' : 'no' %>
-    Command = "<%= item.fetch('command') %>"
+    Command = <%= item.fetch('command').inspect %>
   }
 <% end -%>
-
 }

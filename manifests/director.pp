@@ -51,6 +51,7 @@ class bacula::director (
     Bacula::Messages::Director <<| site == $site |>>
     Bacula::Storage::Director <<| site == $site |>>
     Bacula::Client::Director <<| site == $site |>>
+    Bacula::Fileset::Director <<| site == $site |>>
     Bacula::Job::Director <<| site == $site |>>
 }
 

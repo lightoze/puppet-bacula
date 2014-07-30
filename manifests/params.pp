@@ -51,6 +51,7 @@ class bacula::params {
     $order_messages = '02'
     $order_storage = '03'
     $order_client = '04'
-    $order_job = '05'
+    $order_fileset = '05'
+    $order_job = '06'
     $order_includes = '99'
 }
