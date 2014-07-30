@@ -11,7 +11,9 @@ class bacula::director (
     $max_concurrent_jobs = 1,
     $messages = 'Standard',
 ) inherits bacula::params {
+    include bacula::tls
     $site = $bacula::params::site
+
     package { 'bacula-director':
         name => $package,
         ensure => present,
@@ -23,17 +25,18 @@ class bacula::director (
     }
 
     file { "${config}.d":
-        require => Package['bacula-director'],
         ensure => directory,
         mode => '0750',
         owner => 'root',
         group => $group,
+        require => Package['bacula-director'],
     }
 
     concat { $config:
         mode => '0640',
         owner => 'root',
         group => $group,
+        require => Package['bacula-director'],
         notify => Service['bacula-director'],
     }
     contain bacula::director::fragments

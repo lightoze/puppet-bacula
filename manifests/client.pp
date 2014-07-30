@@ -12,7 +12,9 @@ class bacula::client (
     $file_retention = '2 months',
     $job_retention = '6 months',
 ) inherits bacula::params {
+    include bacula::tls
     $site = $bacula::params::site
+
     package { 'bacula-client':
         name => $package,
         ensure => present,
@@ -27,6 +29,7 @@ class bacula::client (
         mode => '0640',
         owner => 'root',
         group => $group,
+        require => Package['bacula-client'],
         notify => Service['bacula-client'],
     }
     concat::fragment { 'bacula_fd':

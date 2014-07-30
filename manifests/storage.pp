@@ -9,7 +9,9 @@ class bacula::storage (
     $password = $bacula::params::storage_password,
     $max_concurrent_jobs = 10,
 ) inherits bacula::params {
+    include bacula::tls
     $site = $bacula::params::site
+
     package { 'bacula-storage':
         name => $package,
         ensure => present,
@@ -21,17 +23,18 @@ class bacula::storage (
     }
 
     file { "${config}.d":
-        require => Package['bacula-storage'],
         ensure => directory,
         mode => '0750',
         owner => 'root',
         group => $group,
+        require => Package['bacula-storage'],
     }
 
     concat { $config:
         mode => '0640',
         owner => 'root',
         group => $bacula::storage::group,
+        require => Package['bacula-storage'],
         notify => Service['bacula-storage'],
     }
     contain bacula::storage::fragments

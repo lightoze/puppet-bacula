@@ -3,7 +3,9 @@ class bacula::console (
     $config = $bacula::params::console_config,
     $group = $bacula::params::group,
 ) inherits bacula::params {
+    include bacula::tls
     $site = $bacula::params::site
+
     package { 'bacula-console':
         name => $package,
         ensure => present,
@@ -14,6 +16,7 @@ class bacula::console (
         owner => 'root',
         group => $group,
         force => true,
+        require => Package['bacula-console'],
     }
     Bacula::Director::Console <<| site == $site |>>
 }

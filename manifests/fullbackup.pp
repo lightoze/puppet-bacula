@@ -7,7 +7,10 @@ class bacula::fullbackup (
     require bacula::client
     $dir = "${configdir}/full-backup"
 
-    file { $dir: ensure => directory }
+    file { $dir:
+        ensure => directory,
+        require => Package['bacula-client'],
+    }
     file { "${dir}/excludes": ensure => file }
 
     bacula::fullbackup::excludes { 'FullBackup':
