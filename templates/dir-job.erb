@@ -3,7 +3,7 @@ Job {
   Client = "<%= @client %>-fd"
 
 <% @options_real.each do |key, value| -%>
-  <%= key %> = <%= (/\w+/ =~ value) ? value : value.inspect %>
+  <%= key %> = <%= (/^\w+$/ =~ value) ? value : value.inspect %>
 <% end -%>
 
 <% @runscripts.each do |item| -%>
