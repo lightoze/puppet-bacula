@@ -8,11 +8,19 @@ define bacula::job(
         site => $bacula::client::site,
         client => $::fqdn,
         options => $options,
-        runscripts => $runscripts,
+        runscripts_ => $runscripts,
     }
 }
 
-define bacula::job::director($site, $client, $options, $runscripts) {
+define bacula::job::director($site, $client, $options, $runscripts_) {
+    validate_hash($options)
+    # Workaround for https://tickets.puppetlabs.com/browse/PDB-170
+    if (!is_array($runscripts_)) {
+        $runscripts = [$runscripts_]
+    } else {
+        $runscripts = $runscripts_
+    }
+    validate_array($runscripts)
     $fileset = $options['FileSet']
     if ($fileset and defined(Bacula::Fileset::Director["${client}-fs-${fileset}"])) {
         $fileset_options = {

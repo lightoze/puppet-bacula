@@ -12,7 +12,7 @@ class bacula::fullbackup (
 
     bacula::fullbackup::excludes { 'FullBackup':
         dir => $dir,
-        files => ['/sys', '/proc', '/dev', "\\<${dir}/excludes"],
+        files => ["\\<${dir}/excludes", "${concat_basedir}/*", "${puppet_vardir}/clientbucket/*"],
         require => File[$dir],
     }
 
@@ -36,6 +36,19 @@ class bacula::fullbackup (
             }
         ],
     }
+
+    if ($::kernel == 'Linux') {
+        Bacula::Fullbackup::Excludes <| |> {
+            regexfile +> ['/var/log/.*\.[0-9]{1,2}(\.gz|\.bz2)?'],
+            files +> ['/tmp/*'],
+        }
+    }
+
+    if ($::osfamily == 'Debian') {
+        Bacula::Fullbackup::Excludes <| |> {
+            wildfile +> ['/var/lib/apt/lists/*', '/var/cache/apt/archives/*'],
+        }
+    }
 }
 
 define bacula::fullbackup::excludes (
@@ -49,26 +62,37 @@ define bacula::fullbackup::excludes (
     $regexfile = [],
 ) {
     validate_array($files)
+    validate_array($wild)
+    validate_array($wilddir)
+    validate_array($wildfile)
+    validate_array($regex)
+    validate_array($regexdir)
+    validate_array($regexfile)
+
+    $mountexclude = join(grep($files, '^[^\\<|][^\\*\'"]*$'), '|')
+    if ((size($wild) + size($wilddir) + size($wildfile) + size($regex) + size($regexdir) + size($regexfile)) > 0) {
+        $exclude = [{
+            exclude => yes,
+            wild => $wild,
+            wilddir => $wilddir,
+            wildfile => $wildfile,
+            regex => $regex,
+            regexdir => $regexdir,
+            regexfile => $regexfile,
+        }]
+    } else {
+        $exclude = []
+    }
+    $options = [{
+        signature => SHA1,
+        compression => GZIP,
+        noatime => yes,
+    }]
 
     bacula::fileset { 'FullBackup':
         includes => [{
-            options => [
-                {
-                    exclude => yes,
-                    wild => $wild,
-                    wilddir => $wilddir,
-                    wildfile => $wildfile,
-                    regex => $regex,
-                    regexdir => $regexdir,
-                    regexfile => $regexfile,
-                },
-                {
-                    signature => SHA1,
-                    compression => GZIP,
-                    noatime => yes,
-                }
-            ],
-            files => ["\\|sh -c \"df -lPT | grep -iP '\\b(ext[234]|reiserfs|xfs|vfat)\\b' | awk '{print \$7}'\""],
+            options => concat($exclude, $options),
+            files => ["\\|sh -c \"df -lPT | grep -iE '\\b(ext[234]|reiserfs|xfs|vfat)\\b' | awk '{print \$7}' | grep -vf '${dir}/excludes' | grep -vE '^(${mountexclude})$'\""],
         }],
         excludes => $files,
     }
