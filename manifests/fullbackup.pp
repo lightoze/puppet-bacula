@@ -22,20 +22,21 @@ class bacula::fullbackup (
     file { "${dir}/run-before": ensure => directory }
     file { "${dir}/run-after": ensure => directory }
 
-    $fileset_options = {
+    $extra_options = {
         'FileSet' => 'FullBackup'
     }
+    $exports = "export BACKUP_JOBID=%j BACKUP_LEVEL=%l;"
     bacula::job { 'FullBackup':
-        options => merge($options, $fileset_options),
+        options => merge($options, $extra_options),
         runscripts => [
             {
                 runs_when => 'Before',
-                command => "run-parts --report ${dir}/run-before",
+                command => "sh -c '${exports} run-parts --report ${dir}/run-before'",
             },
             {
                 runs_when => 'After',
                 runs_on_failure => true,
-                command => "run-parts --report ${dir}/run-after",
+                command => "sh -c '${exports} run-parts --report ${dir}/run-after'",
             }
         ],
     }
