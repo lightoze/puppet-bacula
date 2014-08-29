@@ -15,24 +15,13 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
-
-## Module Description
-
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+This module allows you to manage your Bacula backup system.
 
 ## Setup
 
 ### What bacula affects
 
+* bacula-dir.conf, bacula-sd.conf, bacula-fd.conf and bconsole.conf configuration files are overwritten by this module.
 * A list of files, packages, services, or operations that the module will alter,
   impact, or execute on the system it's installed on.
 * This is a great place to stick any warnings.
@@ -40,8 +29,7 @@ management, etc.) this is the time to mention it.
 
 ### Setup Requirements **OPTIONAL**
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+Puppet 3.x, enabled pluginsync and a recent version of stdlib are required for this module.
 
 ### Beginning with bacula
 
