@@ -5,8 +5,8 @@
   "summary": "Manages Bacula server and clients",
   "license": "Apache 2.0",
   "source": "git@github.com:lightoze/puppet-bacula.git",
-  "project_page": null,
-  "issues_url": null,
+  "project_page": "https://github.com/lightoze/puppet-bacula",
+  "issues_url": "https://github.com/lightoze/puppet-bacula/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
