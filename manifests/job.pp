@@ -1,5 +1,5 @@
 define bacula::job(
-    $options = {},
+    $options,
     $runscripts = [],
 ) {
     validate_hash($options)
