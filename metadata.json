@@ -1,17 +1,37 @@
 {
   "name": "lightoze-bacula",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "lightoze",
   "summary": "Manages Bacula server and clients",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "git@github.com:lightoze/puppet-bacula.git",
   "project_page": "https://github.com/lightoze/puppet-bacula",
   "issues_url": "https://github.com/lightoze/puppet-bacula/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ],
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_range": ">= 4.0.0"
+      "version_range": ">=4.0.0 <5.0.0"
     }
   ]
 }
-
