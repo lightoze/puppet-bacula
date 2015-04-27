@@ -21,6 +21,7 @@ class bacula::client (
   }
   service { 'bacula-client':
     ensure  => running,
+    enable  => true,
     name    => $service,
     require => Package['bacula-client'],
   }

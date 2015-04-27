@@ -18,6 +18,7 @@ class bacula::storage (
   }
   service { 'bacula-storage':
     ensure  => running,
+    enable  => true,
     name    => $service,
     require => Package['bacula-storage'],
   }

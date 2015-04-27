@@ -20,6 +20,7 @@ class bacula::director (
   }
   service { 'bacula-director':
     ensure  => running,
+    enable  => true,
     name    => $service,
     require => Package['bacula-director'],
   }
