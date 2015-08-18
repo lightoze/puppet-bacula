@@ -38,7 +38,7 @@ class bacula::client (
     content => template('bacula/fd.erb'),
     order   => $bacula::params::order_client,
   }
-  @@bacula::client::director { $::fqdn:
+  @@bacula::client::director { $trusted['certname']:
     site           => $site,
     port           => $port,
     password       => $password,

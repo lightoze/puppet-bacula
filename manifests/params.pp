@@ -39,14 +39,14 @@ class bacula::params {
   $allowed_peers = undef
 
   $director_port = 9101
-  $director_password = sha1("${::fqdn}-dir-${::sshrsakey}")
+  $director_password = sha1("${trusted['certname']}-dir-${::sshrsakey}")
   $director_queryfile = '/etc/bacula/scripts/query.sql'
 
   $client_port = 9102
-  $client_password = sha1("${::fqdn}-fd-${::sshrsakey}")
+  $client_password = sha1("${trusted['certname']}-fd-${::sshrsakey}")
 
   $storage_port = 9103
-  $storage_password = sha1("${::fqdn}-sd-${::sshrsakey}")
+  $storage_password = sha1("${trusted['certname']}-sd-${::sshrsakey}")
 
   $order_director = '01'
   $order_messages = '02'

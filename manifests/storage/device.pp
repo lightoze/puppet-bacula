@@ -1,8 +1,8 @@
 define bacula::storage::device($mediatype, $autochanger = false, $max_concurrent_jobs = 1) {
   $allowed_peers = undef
-  @@bacula::storage::director { "${::fqdn}-${name}":
+  @@bacula::storage::director { "${trusted['certname']}-${name}":
     site                => $bacula::storage::site,
-    address             => $::fqdn,
+    address             => $trusted['certname'],
     port                => $bacula::storage::port,
     password            => $bacula::storage::password,
     device              => $name,

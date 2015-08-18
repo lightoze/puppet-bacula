@@ -41,13 +41,13 @@ class bacula::director (
     notify  => Service['bacula-director'],
   }
   contain bacula::director::fragments
-  @@bacula::director::client { $::fqdn:
+  @@bacula::director::client { $trusted['certname']:
     site => $site,
   }
-  @@bacula::director::storage { $::fqdn:
+  @@bacula::director::storage { $trusted['certname']:
     site => $site,
   }
-  @@bacula::director::console { $::fqdn:
+  @@bacula::director::console { $trusted['certname']:
     site     => $site,
     port     => $port,
     password => $password,

@@ -4,9 +4,9 @@ define bacula::job(
 ) {
   validate_hash($options)
   validate_array($runscripts)
-  @@bacula::job::director { "${::fqdn}-${name}":
+  @@bacula::job::director { "${trusted['certname']}-${name}":
     site        => $bacula::client::site,
-    client      => $::fqdn,
+    client      => $trusted['certname'],
     options     => $options,
     runscripts_ => $runscripts,
   }

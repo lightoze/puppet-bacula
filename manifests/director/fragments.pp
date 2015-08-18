@@ -1,6 +1,6 @@
 class bacula::director::fragments {
   $config = $bacula::director::config
-  $allowed_peers = [$::fqdn]
+  $allowed_peers = [$trusted['certname']]
   concat::fragment { 'bacula_director':
     target  => $config,
     content => template('bacula/dir.erb'),
