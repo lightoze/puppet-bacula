@@ -7,7 +7,6 @@ class bacula::params {
       $configdir = '/etc/bacula'
 
       $director_config = "${configdir}/bacula-dir.conf"
-      $director_service = 'bacula-director'
 
       $client_config = "${configdir}/bacula-fd.conf"
       $client_service = 'bacula-fd'
@@ -22,12 +21,16 @@ class bacula::params {
   case $::osfamily {
     default: { fail() }
     'Debian': {
+      $director_package = 'bacula-director-pgsql'
+      $director_service = 'bacula-director'
       $storage_package = 'bacula-sd'
       $client_package = 'bacula-fd'
       $working_directory = '/var/lib/bacula'
       $pid_directory = '/var/run/bacula'
     }
     'RedHat': {
+      $director_package = 'bacula-director'
+      $director_service = 'bacula-dir'
       $storage_package = 'bacula-storage'
       $client_package = 'bacula-client'
       $working_directory = '/var/spool/bacula'

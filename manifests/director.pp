@@ -1,5 +1,5 @@
 class bacula::director (
-  $package,
+  $package = $bacula::params::director_package,
   $config = $bacula::params::director_config,
   $group = $bacula::params::group,
   $service = $bacula::params::director_service,
