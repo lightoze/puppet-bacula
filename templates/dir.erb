@@ -1,12 +1,12 @@
 Director {
   Name = "<%= @trusted['certname'] %>-dir"
-  DirPort = <%= @port %>
-  WorkingDirectory = "<%= @working_directory %>"
-  PidDirectory = "<%= @pid_directory %>"
-  Password = "<%= @password %>"
-  QueryFile = "<%= @queryfile %>"
-  Maximum Concurrent Jobs = <%= @max_concurrent_jobs %>
-  Messages = <%= @messages %>
+  DirPort = <%= scope['bacula::director::port'] %>
+  WorkingDirectory = "<%= scope['bacula::director::working_directory'] %>"
+  PidDirectory = "<%= scope['bacula::director::pid_directory'] %>"
+  Password = "<%= scope['bacula::director::password'] %>"
+  QueryFile = "<%= scope['bacula::director::queryfile'] %>"
+  Maximum Concurrent Jobs = <%= scope['bacula::director::max_concurrent_jobs'] %>
+  Messages = <%= scope['bacula::director::messages'] %>
 
 <%= scope.function_template(['bacula/tls.erb']) -%>
 }
