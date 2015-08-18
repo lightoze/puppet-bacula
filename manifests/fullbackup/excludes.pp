@@ -1,6 +1,6 @@
 define bacula::fullbackup::excludes (
   $dir,
-  $files = [],
+  $excludes = [],
   $wild = [],
   $wilddir = [],
   $wildfile = [],
@@ -8,7 +8,7 @@ define bacula::fullbackup::excludes (
   $regexdir = [],
   $regexfile = [],
 ) {
-  validate_array($files)
+  validate_array($excludes)
   validate_array($wild)
   validate_array($wilddir)
   validate_array($wildfile)
@@ -16,7 +16,7 @@ define bacula::fullbackup::excludes (
   validate_array($regexdir)
   validate_array($regexfile)
 
-  $mountexclude = join(grep($files, '^[^\\<|][^\\*\'"]*$'), '|')
+  $mountexclude = join(grep($excludes, '^[^\\<|][^\\*\'"]*$'), '|')
   if ((size($wild) + size($wilddir) + size($wildfile) + size($regex) + size($regexdir) + size($regexfile)) > 0) {
     $exclude = [{
       exclude => yes,
@@ -39,8 +39,8 @@ define bacula::fullbackup::excludes (
   bacula::fileset { 'FullBackup':
     includes => [{
       options => concat($exclude, $options),
-      files   => ["\\|sh -c \"df -lPT | grep -iE '\\b(ext[234]|reiserfs|xfs|vfat)\\b' | awk '{print \$7}' | grep -vf '${dir}/excludes' | grep -vE '^(${mountexclude})$'\""],
+      files   => ["\\|sh -c \"df -lPT | grep -iE '\\b(ext[234]|btrfs|reiserfs|xfs|vfat)\\b' | awk '{print \$7}' | grep -vf '${dir}/excludes' | grep -vE '^(${mountexclude})$'\""],
     }],
-    excludes => $files,
+    excludes => $excludes,
   }
 }

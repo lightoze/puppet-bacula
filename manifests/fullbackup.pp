@@ -14,9 +14,9 @@ class bacula::fullbackup (
   file { "${dir}/excludes": ensure => file }
 
   bacula::fullbackup::excludes { 'FullBackup':
-    dir     => $dir,
-    files   => ["\\<${dir}/excludes", "${::concat_basedir}/*", "${::puppet_vardir}/clientbucket/*"],
-    require => File[$dir],
+    dir        => $dir,
+    excludes   => ["\\<${dir}/excludes", "${::concat_basedir}/*", "${::puppet_vardir}/clientbucket/*"],
+    require    => File[$dir],
   }
 
   file { "${dir}/run-before": ensure => directory }
@@ -43,8 +43,8 @@ class bacula::fullbackup (
 
   if ($::kernel == 'Linux') {
     Bacula::Fullbackup::Excludes <| |> {
-      regexfile +> ['/var/log/.*\.[0-9]{1,2}(\.gz|\.bz2)?'],
-      files     +> ['/tmp/*'],
+      wildfile     +> ['/var/log/*'],
+      excludes     +> ['/tmp/*'],
     }
   }
 
