@@ -1,7 +1,7 @@
 define bacula::messages (
   $lines_director,
-  $lines_storage = [ 'director = "null" = all' ],
-  $lines_client = [ 'director = "null" = all, !skipped, !restored' ],
+  $lines_storage = [ 'director = "<current>" = all' ],
+  $lines_client = [ 'director = "<current>" = all, !skipped, !restored' ],
 ) {
   validate_array($lines_director)
   validate_array($lines_storage)
