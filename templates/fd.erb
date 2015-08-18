@@ -1,5 +1,5 @@
 FileDaemon {
-  Name = "<%= @fqdn %>-fd"
+  Name = "<%= @trusted['certname'] %>-fd"
   FDPort = <%= @port %>
   Working Directory = "<%= @working_directory %>"
   Pid Directory = "<%= @pid_directory %>"

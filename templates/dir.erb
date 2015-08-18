@@ -1,5 +1,5 @@
 Director {
-  Name = "<%= @fqdn %>-dir"
+  Name = "<%= @trusted['certname'] %>-dir"
   DirPort = <%= @port %>
   WorkingDirectory = "<%= @working_directory %>"
   PidDirectory = "<%= @pid_directory %>"
