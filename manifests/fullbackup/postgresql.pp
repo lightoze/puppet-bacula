@@ -1,5 +1,6 @@
 class bacula::fullbackup::postgresql (
   $exclude_db = [],
+  $weekly_snapshot = false
 ) {
   require bacula::fullbackup
 
