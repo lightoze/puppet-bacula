@@ -16,7 +16,7 @@ define bacula::fullbackup::excludes (
   validate_array($regexdir)
   validate_array($regexfile)
 
-  $mountexclude = join(grep($excludes, '^[^\\<|][^\\*\'"]*$'), '|')
+  $mountexclude = join(grep($excludes, '^[^\\\\<|][^\\\\*\'"]*$'), '|')
   if ((size($wild) + size($wilddir) + size($wildfile) + size($regex) + size($regexdir) + size($regexfile)) > 0) {
     $exclude = [{
       exclude => yes,
@@ -39,7 +39,7 @@ define bacula::fullbackup::excludes (
   bacula::fileset { 'FullBackup':
     includes => [{
       options => concat($exclude, $options),
-      files   => ["\\|sh -c \"df -lPT | grep -iE '\\b(ext[234]|btrfs|reiserfs|xfs|vfat)\\b' | awk '{print \$7}' | grep -vf '${dir}/excludes' | grep -vE '^(${mountexclude})$'\""],
+      files   => ["\\|sh -c \"awk '{print \$2, \$3}' /proc/mounts | grep -oP '\\S+(?=\\s(ext[234]|btrfs|reiserfs|xfs|vfat))' | grep -vf '${dir}/excludes' | grep -vE '^(${mountexclude})\$'\""],
     }],
     excludes => $excludes,
   }
