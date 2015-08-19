@@ -1,5 +1,6 @@
 class bacula::client (
   $package = $bacula::params::client_package,
+  $configdir = $bacula::params::configdir,
   $config = $bacula::params::client_config,
   $group = $bacula::params::group,
   $service = $bacula::params::client_service,
@@ -48,4 +49,16 @@ class bacula::client (
   }
   Bacula::Director::Client <<| site == $site |>>
   Bacula::Messages::Client <<| site == $site |>>
+
+  $scriptdir = "${configdir}/scripts"
+  file { $scriptdir:
+    ensure  => directory,
+    require => Package['bacula-client'],
+  }
+
+  ensure_resource("package", "xdelta3", { ensure => present })
+  file { "${scriptdir}/delta.sh":
+    source => 'puppet:///modules/bacula/delta.sh',
+    mode   => '755',
+  }
 }

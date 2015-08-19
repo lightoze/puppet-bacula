@@ -6,6 +6,8 @@ class bacula::fullbackup (
 
   require bacula::client
   $dir = "${configdir}/full-backup"
+  $run_before_dir = "${dir}/run-before"
+  $run_after_dir = "${dir}/run-after"
 
   file { $dir:
     ensure  => directory,
@@ -19,8 +21,8 @@ class bacula::fullbackup (
     require    => File[$dir],
   }
 
-  file { "${dir}/run-before": ensure => directory }
-  file { "${dir}/run-after": ensure => directory }
+  file { $run_before_dir: ensure => directory }
+  file { $run_after_dir: ensure => directory }
 
   $extra_options = {
     'FileSet' => 'FullBackup'
@@ -31,12 +33,12 @@ class bacula::fullbackup (
     runscripts => [
       {
         runs_when => 'Before',
-        command   => "sh -c '${exports} run-parts ${dir}/run-before'",
+        command   => "sh -c '${exports} run-parts ${run_before_dir}/'",
       },
       {
         runs_when       => 'After',
         runs_on_failure => true,
-        command         => "sh -c '${exports} run-parts ${dir}/run-after'",
+        command         => "sh -c '${exports} run-parts ${run_after_dir}/'",
       }
     ],
   }
