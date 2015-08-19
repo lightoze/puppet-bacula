@@ -56,7 +56,15 @@ class bacula::client (
     require => Package['bacula-client'],
   }
 
-  ensure_resource("package", "xdelta3", { ensure => present })
+  case $::osfamily {
+    default: { fail("Unsupported platform ${::osfamily}") }
+    'Debian': {
+      ensure_resource("package", "xdelta3", { ensure => present })
+    }
+    'RedHat': {
+      ensure_resource("package", "xdelta", { ensure => present })
+    }
+  }
   file { "${scriptdir}/delta.sh":
     source => 'puppet:///modules/bacula/delta.sh',
     mode   => '755',
