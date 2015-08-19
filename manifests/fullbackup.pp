@@ -33,12 +33,12 @@ class bacula::fullbackup (
     runscripts => [
       {
         runs_when => 'Before',
-        command   => "sh -c '${exports} run-parts ${run_before_dir}/'",
+        command   => "sh -c '${exports} run-parts ${run_before_dir}'",
       },
       {
         runs_when       => 'After',
         runs_on_failure => true,
-        command         => "sh -c '${exports} run-parts ${run_after_dir}/'",
+        command         => "sh -c '${exports} run-parts ${run_after_dir}'",
       }
     ],
   }
