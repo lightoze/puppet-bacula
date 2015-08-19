@@ -4,8 +4,8 @@ set -euf -o pipefail
 DUMPDIR="/var/backup/postgresql"
 mkdir -m 700 -p "$DUMPDIR"
 
-DBLIST=`sudo -u postgres /usr/bin/psql -q -t -c "select datname from pg_database where not datname in (<%= @exclude_dbs.map{ |s| "'#{s}'"}.join(',') %>);"`
+DBLIST=$(su postgres -c "psql -q -t -c \"select datname from pg_database where not datname in (<%= @exclude_dbs.map{ |s| "'#{s}'"}.join(',') %>);\"")
 for DB in $DBLIST; do
-  sudo -u postgres /usr/bin/pg_dump --format=p $DB | <%= scope['bacula::client::scriptdir'] %>/delta.sh $DUMPDIR/$DB.sql
+  su postgres -c "pg_dump --format=p $DB" | <%= scope['bacula::client::scriptdir'] %>/delta.sh $DUMPDIR/$DB.sql
 done
-sudo -u postgres /usr/bin/pg_dumpall -g | <%= scope['bacula::client::scriptdir'] %>/delta.sh $DUMPDIR/_global.sql
+su postgres -c "pg_dumpall -g" | <%= scope['bacula::client::scriptdir'] %>/delta.sh $DUMPDIR/_global.sql
