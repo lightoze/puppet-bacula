@@ -31,8 +31,8 @@ define bacula::fullbackup::excludes (
     $exclude = []
   }
   $options = [{
-    signature => SHA1,
-    compression => GZIP,
+    signature => 'SHA1',
+    compression => 'GZIP',
     noatime => yes,
   }]
 
