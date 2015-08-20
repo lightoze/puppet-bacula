@@ -2,19 +2,19 @@
 set -euf -o pipefail
 
 LEVEL="$BACKUP_LEVEL"
-WEEKLY=false
+FULL_DIFF=false
 
-while getopts "w" opt; do
+while getopts "d" opt; do
   case $opt in
-    a)
-      WEEKLY=true
+    d)
+      FULL_DIFF=true
       ;;
   esac
 done
 
 FILE="$1"
 
-if [ "$LEVEL" = "Differential" -a $WEEKLY = false ]; then
+if [ "$LEVEL" = "Differential" -a $FULL_DIFF = false ]; then
   LEVEL="Incremental"
 fi
 

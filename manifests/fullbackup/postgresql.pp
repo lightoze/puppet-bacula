@@ -1,6 +1,6 @@
 class bacula::fullbackup::postgresql (
   $exclude_db = [],
-  $weekly_snapshot = false,
+  $full_differential = false,
   $user = 'postgres',
   $binary_path = '/usr/bin',
   $dump_dir = '/var/backup/postgresql',

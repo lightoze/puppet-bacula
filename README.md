@@ -23,7 +23,7 @@ This module allows you to manage your Bacula backup system.
 
 ### Setup Requirements
 
-Puppet 3.x, enabled pluginsync and a recent version of stdlib are required by this module.
+Puppet 4.x and a recent version of stdlib are required by this module.
 
 ### Beginning with bacula
 
@@ -36,6 +36,9 @@ It is expected that you already have some experience with bacula. To get a worki
 * Bacula storage daemon (in `bacula-sd.conf.d`):
     * Device
 
+Unlike Bacula itself, classes and resources like `bacula::fullbackup`, `bacula::fileset` or `bacula::job` should be defined not for director node, but on the node you are going to backup.
+They are automatically node-scoped (so that you can have `bacula::fileset` with the same name on different nodes) and exported to the director.
+
 TLS encryption is enabled by default and uses puppet certificates for encryption and authentication. You can disable/customize it with `bacula::tls` class.
 
 ## Classes
@@ -44,7 +47,7 @@ TLS encryption is enabled by default and uses puppet certificates for encryption
 
 Installs Bacula director.
 
-* package - database-specific package to install (e.g. `bacula-director-pgsql`)
+* package - database-specific package to install (default is `bacula-director-pgsql` on Debian and `bacula-director` on RedHat)
 * max_concurrent_jobs = 1
 * messages = 'Standard'
 
@@ -62,7 +65,7 @@ Installs a storage daemon.
 
 Installs a file daemon.
 
-* max_concurrent_jobs = 1
+* max_concurrent_jobs = 2
 * catalog = 'MainCatalog'
 * file_retention = '2 months'
 * job_retention = '6 months'
@@ -81,6 +84,29 @@ Bacula::Fullbackup::Excludes <| |> {
     wildfile +> ['/var/lib/apt/lists/*', '/var/cache/apt/archives/*'],
 }
 ```
+
+Or using one of the following Hiera arrays:
+```
+bacula::fullbackup::excludes
+bacula::fullbackup::excludes::wild
+bacula::fullbackup::excludes::wilddir
+bacula::fullbackup::excludes::wildfile
+bacula::fullbackup::excludes::regex
+bacula::fullbackup::excludes::regexdir
+bacula::fullbackup::excludes::regexfile
+```
+
+### bacula::fullbackup::postgresql
+
+Additionally configures `bacula::fullbackup` to make PostgreSQL backup.
+It uses `xdelta3` to implement incremental backups.
+
+* exclude_db = [] - databases to exclude from backup in addition to `postgres`, `template0` and `template1`
+* full_differential = false - if true, full backup will be made also for differential jobs
+* user = 'postgres' - system user to use for database connection
+* binary_path = '/usr/bin' - a path with `psql`, `pg_dump` and `pg_dumpall` binaries
+* dump_dir = '/var/backup/postgresql' - directory where compressed database dumps will be stored
+* connect_options = '' - additional options string, e.g. '-h /custom/socket/dir'
 
 ## Resources
 
@@ -164,4 +190,4 @@ bacula::job { 'Opt':
 
 ## Limitations
 
-This module was only tested on Ubuntu systems, but also intended to work on any Debian or Fedora (RedHat/CentOS) derivative.
+This module was only tested on recent Ubuntu and CentOS systems with Bacula 5.2 and 7.0.

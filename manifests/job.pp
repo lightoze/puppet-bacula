@@ -1,4 +1,4 @@
-define bacula::job(
+define bacula::job (
   $options,
   $runscripts = [],
 ) {
