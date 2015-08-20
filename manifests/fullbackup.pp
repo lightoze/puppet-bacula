@@ -13,6 +13,10 @@ class bacula::fullbackup (
     ensure  => directory,
     require => Package['bacula-client'],
   }
+  file { "${dir}/run-parts.sh":
+    source => 'puppet:///modules/bacula/run-parts.sh',
+    mode   => '755',
+  }
   file { "${dir}/excludes": ensure => file }
 
   bacula::fullbackup::excludes { 'FullBackup':
@@ -33,18 +37,18 @@ class bacula::fullbackup (
   $extra_options = {
     'FileSet' => 'FullBackup'
   }
-  $exports = 'export BACKUP_JOBID=%j BACKUP_LEVEL=%l;'
+  $run_env = 'BACKUP_JOBID=%j BACKUP_LEVEL=%l'
   bacula::job { 'FullBackup':
     options    => merge($options, $extra_options),
     runscripts => [
       {
         runs_when => 'Before',
-        command   => "sh -c '${exports} run-parts ${run_before_dir}'",
+        command   => "${dir}/run-parts.sh '${run_before_dir}' ${run_env}",
       },
       {
         runs_when       => 'After',
         runs_on_failure => true,
-        command         => "sh -c '${exports} run-parts ${run_after_dir}'",
+        command         => "${dir}/run-parts.sh '${run_after_dir}' ${run_env}",
       }
     ],
   }
