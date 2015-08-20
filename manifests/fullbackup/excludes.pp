@@ -1,12 +1,7 @@
 define bacula::fullbackup::excludes (
-  $dir,
-  $excludes = hiera_array('bacula::fullbackup::excludes', []),
-  $wild = hiera_array('bacula::fullbackup::excludes::wild', []),
-  $wilddir = hiera_array('bacula::fullbackup::excludes::wilddir', []),
-  $wildfile = hiera_array('bacula::fullbackup::excludes::wildfile', []),
-  $regex = hiera_array('bacula::fullbackup::excludes::regex', []),
-  $regexdir = hiera_array('bacula::fullbackup::excludes::regexdir', []),
-  $regexfile = hiera_array('bacula::fullbackup::excludes::regexfile', []),
+  $dir, $excludes,
+  $wild, $wilddir, $wildfile,
+  $regex, $regexdir, $regexfile,
 ) {
   validate_array($excludes)
   validate_array($wild)
