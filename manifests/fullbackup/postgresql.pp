@@ -1,6 +1,8 @@
 class bacula::fullbackup::postgresql (
   $exclude_db = [],
-  $weekly_snapshot = false
+  $weekly_snapshot = false,
+  $binary_path = '/usr/bin',
+  $dump_dir = '/var/backup/postgresql',
 ) {
   require bacula::fullbackup
 
