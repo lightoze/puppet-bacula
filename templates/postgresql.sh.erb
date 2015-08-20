@@ -4,8 +4,8 @@ set -euf -o pipefail
 DUMPDIR="<%= @dump_dir %>"
 mkdir -m 700 -p "$DUMPDIR"
 
-DBLIST=$(su <%= @user %> -c "<%= @binary_path %>/psql -q -t -d postgres -c \"select datname from pg_database where not datname in (<%= @exclude_dbs.map{ |s| "'#{s}'"}.join(',') %>);\"")
+DBLIST=$(su <%= @user %> -c "<%= @binary_path %>/psql <%= @connect_options %> -q -t -d postgres -c \"select datname from pg_database where not datname in (<%= @exclude_dbs.map{ |s| "'#{s}'"}.join(',') %>);\"")
 for DB in $DBLIST; do
-  su <%= @user %> -c "<%= @binary_path %>/pg_dump --format=p $DB" | <%= scope['bacula::client::scriptdir'] %>/delta.sh<%= @weekly_snapshot ? ' -w' : '' %> "$DUMPDIR/$DB.sql"
+  su <%= @user %> -c "<%= @binary_path %>/pg_dump <%= @connect_options %> --format=p $DB" | <%= scope['bacula::client::scriptdir'] %>/delta.sh<%= @weekly_snapshot ? ' -w' : '' %> "$DUMPDIR/$DB.sql"
 done
-su <%= @user %> -c "<%= @binary_path %>/pg_dumpall -g" | <%= scope['bacula::client::scriptdir'] %>/delta.sh<%= @weekly_snapshot ? ' -w' : '' %> "$DUMPDIR/_global.sql"
+su <%= @user %> -c "<%= @binary_path %>/pg_dumpall <%= @connect_options %> -g" | <%= scope['bacula::client::scriptdir'] %>/delta.sh<%= @weekly_snapshot ? ' -w' : '' %> "$DUMPDIR/_global.sql"

@@ -4,6 +4,7 @@ class bacula::fullbackup::postgresql (
   $user = 'postgres',
   $binary_path = '/usr/bin',
   $dump_dir = '/var/backup/postgresql',
+  $connect_options = '',
 ) {
   require bacula::fullbackup
 
