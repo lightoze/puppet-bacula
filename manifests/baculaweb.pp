@@ -24,7 +24,7 @@ class bacula::baculaweb (
     extract_path  => "${doc_root}",
     creates       => "${doc_root}/index.php",
     checksum      => $sha1sum,
-    checksum_typw => 'sha1',
+    checksum_type => 'sha1',
   }
   ->
   file { "${doc_root}/application/config/config.php":
