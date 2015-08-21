@@ -1,0 +1,21 @@
+<?php
+
+// Show inactive clients (false by default)
+$config['show_inactive_clients'] = <%= @show_inactive_clients %>;
+
+// Hide empty pools (displayed by default)
+$config['hide_empty_pools'] = <%= @hide_empty_pools %>;
+
+// Jobs per page (Jobs report page)
+$config['jobs_per_page'] = <%= @jobs_per_page %>;
+
+// Translations
+$config['language'] = '<%= @language %>';
+
+<% @configs.each do |config, i| -%>
+<% config.each do |key, value| -%>
+$config[<%= i %>]['<%= key %>'] = '<%= value %>';
+<% end -%>
+<% end -%>
+
+?>

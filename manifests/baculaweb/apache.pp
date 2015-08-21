@@ -8,7 +8,7 @@ class bacula::baculaweb::apache (
   include apache::mod::php
 
   $base_vhost_options = {
-    docroot => "${bacula::baculaweb::path}/${bacula::baculaweb::version}",
+    docroot => $bacula::baculaweb::doc_root,
     ssl     => $ssl,
     port    => $port,
   }
