@@ -28,7 +28,7 @@ class bacula::baculaweb (
   }
   ->
   file { "${doc_root}/application/config/config.php":
-    content => template('baculaweb.php.erb'),
+    content => template('bacula/baculaweb.php.erb'),
   }
 
   case $::osfamily {
