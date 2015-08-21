@@ -4,7 +4,7 @@ class bacula::baculaweb::apache (
   $port = 443,
   $vhost_options = { },
 ) {
-  require bacula::baculaweb
+  include bacula::baculaweb
   include apache::mod::php
 
   $base_vhost_options = {
