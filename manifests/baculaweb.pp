@@ -8,9 +8,6 @@ class bacula::baculaweb (
   $language = 'en_US',
   $configs = [{
     label => 'Bacula Server',
-    host => '',
-    login => '',
-    password => '',
     db_name => 'bacula',
     db_type => 'pgsql',
     db_port => 5432,

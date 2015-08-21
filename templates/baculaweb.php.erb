@@ -12,7 +12,7 @@ $config['jobs_per_page'] = <%= @jobs_per_page %>;
 // Translations
 $config['language'] = '<%= @language %>';
 
-<% @configs.each do |config, i| -%>
+<% @configs.each_with_index do |config, i| -%>
 <% config.each do |key, value| -%>
 $config[<%= i %>]['<%= key %>'] = '<%= value %>';
 <% end -%>
