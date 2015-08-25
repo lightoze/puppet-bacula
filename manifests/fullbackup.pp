@@ -55,7 +55,7 @@ class bacula::fullbackup (
 
   if ($::kernel == 'Linux') {
     Bacula::Fullbackup::Excludes <| |> {
-      wildfile     +> ['/var/log/*', '/var/cache/*'],
+      wildfile     +> ['/var/log/*'],
       excludes     +> ['/tmp/*'],
     }
   }
