@@ -8,6 +8,7 @@ class bacula::storage (
   $pid_directory = $bacula::params::pid_directory,
   $password = $bacula::params::storage_password,
   $max_concurrent_jobs = 10,
+  $heartbeat_interval = '1 minute',
 ) inherits bacula::params {
   include bacula::tls
   $site = $bacula::params::site

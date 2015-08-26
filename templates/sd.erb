@@ -4,6 +4,7 @@ Storage {
   WorkingDirectory = "<%= scope['bacula::storage::working_directory'] %>"
   PidDirectory = "<%= scope['bacula::storage::pid_directory'] %>"
   Maximum Concurrent Jobs = <%= scope['bacula::storage::max_concurrent_jobs'] %>
+  Heartbeat Interval = <%= scope['bacula::storage::heartbeat_interval'] %>
 
 <%= scope.function_template(['bacula/tls.erb']) -%>
 }

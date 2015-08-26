@@ -9,6 +9,7 @@ class bacula::client (
   $pid_directory = $bacula::params::pid_directory,
   $password = $bacula::params::client_password,
   $max_concurrent_jobs = 2,
+  $heartbeat_interval = '1 minute',
   $catalog = 'MainCatalog',
   $file_retention = '2 months',
   $job_retention = '6 months',

@@ -6,6 +6,7 @@ Director {
   Password = "<%= scope['bacula::director::password'] %>"
   QueryFile = "<%= scope['bacula::director::queryfile'] %>"
   Maximum Concurrent Jobs = <%= scope['bacula::director::max_concurrent_jobs'] %>
+  Heartbeat Interval = <%= scope['bacula::director::heartbeat_interval'] %>
   Messages = <%= scope['bacula::director::messages'] %>
 
 <%= scope.function_template(['bacula/tls.erb']) -%>

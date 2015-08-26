@@ -9,6 +9,7 @@ class bacula::director (
   $password = $bacula::params::director_password,
   $queryfile = $bacula::params::director_queryfile,
   $max_concurrent_jobs = 1,
+  $heartbeat_interval = '1 minute',
   $messages = 'Standard',
 ) inherits bacula::params {
   include bacula::tls
