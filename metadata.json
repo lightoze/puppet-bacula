@@ -1,6 +1,6 @@
 {
   "name": "lightoze-bacula",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "lightoze",
   "summary": "Manages Bacula server and clients",
   "license": "Apache-2.0",
