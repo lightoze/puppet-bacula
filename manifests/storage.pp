@@ -11,7 +11,7 @@ class bacula::storage (
   $heartbeat_interval = '1 minute',
 ) inherits bacula::params {
   include bacula::tls
-  $site = $bacula::params::site
+  $cluster = $bacula::params::cluster
 
   package { 'bacula-storage':
     ensure => present,
@@ -41,6 +41,6 @@ class bacula::storage (
   }
   contain bacula::storage::fragments
 
-  Bacula::Director::Storage <<| site == $site |>>
-  Bacula::Messages::Storage <<| site == $site |>>
+  Bacula::Director::Storage <<| cluster == $cluster |>>
+  Bacula::Messages::Storage <<| cluster == $cluster |>>
 }

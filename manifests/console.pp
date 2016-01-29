@@ -4,7 +4,7 @@ class bacula::console (
   $group = $bacula::params::group,
 ) inherits bacula::params {
   include bacula::tls
-  $site = $bacula::params::site
+  $cluster = $bacula::params::cluster
 
   package { 'bacula-console':
     ensure => present,
@@ -18,5 +18,5 @@ class bacula::console (
     force   => true,
     require => Package['bacula-console'],
   }
-  Bacula::Director::Console <<| site == $site |>>
+  Bacula::Director::Console <<| cluster == $cluster |>>
 }

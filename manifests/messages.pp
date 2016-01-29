@@ -6,19 +6,19 @@ define bacula::messages (
   validate_array($lines_director)
   validate_array($lines_storage)
   validate_array($lines_client)
-  $site = $bacula::params::site
-  @@bacula::messages::director{ "${site}-${name}":
-    site     => $site,
+  $cluster = $bacula::params::cluster
+  @@bacula::messages::director{ "${cluster}-${name}":
+    cluster     => $cluster,
     messages => $name,
     lines_   => $lines_director,
   }
-  @@bacula::messages::storage{ "${site}-${name}":
-    site     => $site,
+  @@bacula::messages::storage{ "${cluster}-${name}":
+    cluster     => $cluster,
     messages => $name,
     lines_   => $lines_storage,
   }
-  @@bacula::messages::client{ "${site}-${name}":
-    site     => $site,
+  @@bacula::messages::client{ "${cluster}-${name}":
+    cluster     => $cluster,
     messages => $name,
     lines_   => $lines_client,
   }

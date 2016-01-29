@@ -1,4 +1,4 @@
-define bacula::job::director($site, $client, $options, $runscripts_) {
+define bacula::job::director($cluster, $client, $options, $runscripts_) {
   validate_hash($options)
 # Workaround for https://tickets.puppetlabs.com/browse/PDB-170
   if (!is_array($runscripts_)) {

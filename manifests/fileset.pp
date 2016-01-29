@@ -5,7 +5,7 @@ define bacula::fileset (
   validate_array($includes)
   validate_array($excludes)
   @@bacula::fileset::director { "${trusted['certname']}-fs-${name}":
-    site      => $bacula::client::site,
+    cluster      => $bacula::client::cluster,
     includes_ => $includes,
     excludes_ => $excludes,
   }

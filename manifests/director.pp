@@ -13,7 +13,7 @@ class bacula::director (
   $messages = 'Standard',
 ) inherits bacula::params {
   include bacula::tls
-  $site = $bacula::params::site
+  $cluster = $bacula::params::cluster
 
   package { 'bacula-director':
     ensure => present,
@@ -43,19 +43,19 @@ class bacula::director (
   }
   contain bacula::director::fragments
   @@bacula::director::client { $trusted['certname']:
-    site => $site,
+    cluster => $cluster,
   }
   @@bacula::director::storage { $trusted['certname']:
-    site => $site,
+    cluster => $cluster,
   }
   @@bacula::director::console { $trusted['certname']:
-    site     => $site,
+    cluster     => $cluster,
     port     => $port,
     password => $password,
   }
-  Bacula::Messages::Director <<| site == $site |>>
-  Bacula::Storage::Director <<| site == $site |>>
-  Bacula::Client::Director <<| site == $site |>>
-  Bacula::Fileset::Director <<| site == $site |>>
-  Bacula::Job::Director <<| site == $site |>>
+  Bacula::Messages::Director <<| cluster == $cluster |>>
+  Bacula::Storage::Director <<| cluster == $cluster |>>
+  Bacula::Client::Director <<| cluster == $cluster |>>
+  Bacula::Fileset::Director <<| cluster == $cluster |>>
+  Bacula::Job::Director <<| cluster == $cluster |>>
 }

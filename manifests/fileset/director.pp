@@ -1,4 +1,4 @@
-define bacula::fileset::director($site, $includes_, $excludes_) {
+define bacula::fileset::director($cluster, $includes_, $excludes_) {
 # Workaround for https://tickets.puppetlabs.com/browse/PDB-170
   if (!is_array($includes_)) {
     $includes = [$includes_]

@@ -1,4 +1,4 @@
-define bacula::storage::director($site, $address, $port, $password, $device, $mediatype, $autochanger, $max_concurrent_jobs, $heartbeat_interval) {
+define bacula::storage::director($cluster, $address, $port, $password, $device, $mediatype, $autochanger, $max_concurrent_jobs, $heartbeat_interval) {
   concat::fragment { "bacula_storage_${name}":
     target  => $bacula::director::config,
     content => template('bacula/dir-storage.erb'),

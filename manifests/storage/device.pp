@@ -2,7 +2,7 @@ define bacula::storage::device($mediatype, $autochanger = false, $max_concurrent
   include bacula::storage
   $allowed_peers = undef
   @@bacula::storage::director { "${trusted['certname']}-${name}":
-    site                => $bacula::storage::site,
+    cluster                => $bacula::storage::cluster,
     address             => $trusted['certname'],
     port                => $bacula::storage::port,
     password            => $bacula::storage::password,

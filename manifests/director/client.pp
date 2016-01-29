@@ -1,4 +1,4 @@
-define bacula::director::client($site) {
+define bacula::director::client($cluster) {
   $password = $bacula::client::password
   $allowed_peers = [$name]
   concat::fragment { "bacula_fd_${name}":

@@ -15,7 +15,7 @@ class bacula::client (
   $job_retention = '6 months',
 ) inherits bacula::params {
   include bacula::tls
-  $site = $bacula::params::site
+  $cluster = $bacula::params::cluster
 
   package { 'bacula-client':
     ensure => present,
@@ -41,15 +41,15 @@ class bacula::client (
     order   => $bacula::params::order_client,
   }
   @@bacula::client::director { $trusted['certname']:
-    site           => $site,
+    cluster           => $cluster,
     port           => $port,
     password       => $password,
     catalog        => $catalog,
     file_retention => $file_retention,
     job_retention  => $job_retention,
   }
-  Bacula::Director::Client <<| site == $site |>>
-  Bacula::Messages::Client <<| site == $site |>>
+  Bacula::Director::Client <<| cluster == $cluster |>>
+  Bacula::Messages::Client <<| cluster == $cluster |>>
 
   $scriptdir = "${configdir}/scripts"
   file { $scriptdir:

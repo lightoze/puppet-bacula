@@ -1,4 +1,4 @@
-define bacula::director::storage($site) {
+define bacula::director::storage($cluster) {
   $password = $bacula::storage::password
   $allowed_peers = [$name]
   concat::fragment { "bacula_sd_${name}":

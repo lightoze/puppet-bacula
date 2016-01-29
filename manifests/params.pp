@@ -1,5 +1,5 @@
 class bacula::params {
-  $site = hiera('bacula::site', 'default')
+  $cluster = hiera('bacula::cluster', 'default')
 
   case $::osfamily {
     default: { fail("Unsupported platform ${::osfamily}") }
