@@ -7,7 +7,7 @@ class bacula::baculaweb (
   $jobs_per_page = 25,
   $language = 'en_US',
   $configs = [{
-    label => 'Bacula Server',
+    label   => 'Bacula Server',
     db_name => 'bacula',
     db_type => 'pgsql',
     db_port => 5432,

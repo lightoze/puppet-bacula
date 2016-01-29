@@ -14,21 +14,21 @@ define bacula::fullbackup::excludes (
   $mountexclude = join(grep($excludes, '^[^\\\\<|][^\\\\*\'"]*$'), '|')
   if ((size($wild) + size($wilddir) + size($wildfile) + size($regex) + size($regexdir) + size($regexfile)) > 0) {
     $exclude = [{
-      exclude => yes,
-      wild => $wild,
-      wilddir => $wilddir,
-      wildfile => $wildfile,
-      regex => $regex,
-      regexdir => $regexdir,
+      exclude   => yes,
+      wild      => $wild,
+      wilddir   => $wilddir,
+      wildfile  => $wildfile,
+      regex     => $regex,
+      regexdir  => $regexdir,
       regexfile => $regexfile,
     }]
   } else {
     $exclude = []
   }
   $options = [{
-    signature => 'SHA1',
+    signature   => 'SHA1',
     compression => 'GZIP',
-    noatime => yes,
+    noatime     => yes,
   }]
 
   bacula::fileset { 'FullBackup':

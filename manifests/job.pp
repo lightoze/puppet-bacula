@@ -5,7 +5,7 @@ define bacula::job (
   validate_hash($options)
   validate_array($runscripts)
   @@bacula::job::director { "${trusted['certname']}-${name}":
-    cluster        => $bacula::client::cluster,
+    cluster     => $bacula::client::cluster,
     client      => $trusted['certname'],
     options     => $options,
     runscripts_ => $runscripts,

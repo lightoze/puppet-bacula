@@ -49,7 +49,7 @@ class bacula::director (
     cluster => $cluster,
   }
   @@bacula::director::console { $trusted['certname']:
-    cluster     => $cluster,
+    cluster  => $cluster,
     port     => $port,
     password => $password,
   }

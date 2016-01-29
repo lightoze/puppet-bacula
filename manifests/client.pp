@@ -41,7 +41,7 @@ class bacula::client (
     order   => $bacula::params::order_client,
   }
   @@bacula::client::director { $trusted['certname']:
-    cluster           => $cluster,
+    cluster        => $cluster,
     port           => $port,
     password       => $password,
     catalog        => $catalog,

@@ -8,17 +8,17 @@ define bacula::messages (
   validate_array($lines_client)
   $cluster = $bacula::params::cluster
   @@bacula::messages::director{ "${cluster}-${name}":
-    cluster     => $cluster,
+    cluster  => $cluster,
     messages => $name,
     lines_   => $lines_director,
   }
   @@bacula::messages::storage{ "${cluster}-${name}":
-    cluster     => $cluster,
+    cluster  => $cluster,
     messages => $name,
     lines_   => $lines_storage,
   }
   @@bacula::messages::client{ "${cluster}-${name}":
-    cluster     => $cluster,
+    cluster  => $cluster,
     messages => $name,
     lines_   => $lines_client,
   }

@@ -1,5 +1,5 @@
 define bacula::fileset::director($cluster, $includes_, $excludes_) {
-# Workaround for https://tickets.puppetlabs.com/browse/PDB-170
+  # Workaround for https://tickets.puppetlabs.com/browse/PDB-170
   if (!is_array($includes_)) {
     $includes = [$includes_]
   } else {

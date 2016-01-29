@@ -1,5 +1,5 @@
 define bacula::messages::storage($cluster, $messages, $lines_) {
-# Workaround for https://tickets.puppetlabs.com/browse/PDB-170
+  # Workaround for https://tickets.puppetlabs.com/browse/PDB-170
   if (!is_array($lines_)) {
     $lines = [$lines_]
   } else {
