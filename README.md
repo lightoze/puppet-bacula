@@ -23,7 +23,7 @@ This module allows you to manage your Bacula backup system.
 
 ### Setup Requirements
 
-Puppet 4.x and a recent version of stdlib are required by this module.
+Puppet 4.x, **PuppetDB** and a recent version of stdlib are required by this module.
 
 ### Beginning with bacula
 
