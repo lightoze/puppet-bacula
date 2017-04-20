@@ -21,7 +21,7 @@ class bacula::fullbackup (
 
   bacula::fullbackup::excludes { 'FullBackup':
     dir        => $dir,
-    excludes   => concat(hiera_array('bacula::fullbackup::excludes', []), "\\<${dir}/excludes", "${::concat_basedir}/*", "${::puppet_vardir}/clientbucket/*"),
+    excludes   => concat(hiera_array('bacula::fullbackup::excludes', []), "\\<${dir}/excludes", "${::puppet_vardir}/clientbucket/*"),
     wild       => hiera_array('bacula::fullbackup::excludes::wild', []),
     wilddir    => hiera_array('bacula::fullbackup::excludes::wilddir', []),
     wildfile   => hiera_array('bacula::fullbackup::excludes::wildfile', []),
