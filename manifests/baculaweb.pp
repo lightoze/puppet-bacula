@@ -1,6 +1,6 @@
 class bacula::baculaweb (
-  $version = '7.0.3',
-  $sha1sum = 'a6acbcbcaa0573761a9f5baabb7f36b339233054',
+  $download_url = 'http://www.bacula-web.org/download.html?file=files/bacula-web.org/downloads/7.3.0/bacula-web-7.3.0.tgz',
+  $sha1sum = 'cf83707a6ac77b0d60f109b581276b90d9df4a2d',
   $doc_root = '/var/lib/bcweb',
   $show_inactive_clients = true,
   $hide_empty_pools = false,
@@ -16,7 +16,7 @@ class bacula::baculaweb (
   file { $doc_root: ensure => directory }
   ->
   archive { "${puppet_vardir}/bacula-web.tgz":
-    source        => "http://www.bacula-web.org/files/bacula-web.org/downloads/bacula-web-${version}.tgz",
+    source        => $download_url,
     extract       => true,
     extract_path  => "${doc_root}",
     creates       => "${doc_root}/index.php",
